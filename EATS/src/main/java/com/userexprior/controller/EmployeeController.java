@@ -12,10 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import com.userexprior.adaptor.EmployeeAdaptor;
 import com.userexprior.service.EmployeeService;
 
-/**
- * REST Controller for handling employee-related API endpoints.
- * Provides endpoints to retrieve and process employee data.
- */
+
 @RestController
 public class EmployeeController {
 
