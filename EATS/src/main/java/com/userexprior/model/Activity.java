@@ -67,5 +67,5 @@ public class Activity {
 		return "Activity [id=" + id + ", name=" + name + ", time=" + time + ", duration=" + duration + ", employee="
 				+ employee + "]";
 	}
-// my test fffdd
+// my test
 }
