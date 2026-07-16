@@ -13,7 +13,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 @Configuration
 public class DatabaseConfiguration {
-//test
+
 	@Bean(name = "datasource1")
 	@Primary
 	@ConfigurationProperties(prefix = "spring.datasource")
