@@ -16,7 +16,6 @@ import com.userexprior.service.EmployeeService;
 public class EmployeeController {
 
 	@Autowired
-	@Qualifier(value="employeeServiceImpl2")
 	EmployeeService employeeService;
 
 	 
