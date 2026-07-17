@@ -27,7 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 * Injected automatically by Spring's dependency injection.
 	 */
 	@Autowired
-	EmployeeRepository employeeRepository;
+	private EmployeeRepository employeeRepository;
 
 	/**
 	 * Counter to track batch processing of employees.

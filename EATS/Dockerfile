@@ -1,5 +1,5 @@
-FROM openjdk:8
-EXPOSE 8080
+FROM openjdk:21
+EXPOSE 8082
 WORKDIR /app
 
 ADD target/spring-boot-docker.jar /app/spring-boot-docker.jar 
