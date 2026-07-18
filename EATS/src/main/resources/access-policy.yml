@@ -1,0 +1,23 @@
+roles:
+  Developer:
+    - DB_READ
+    - APP_READ
+    - LOG_VIEW
+  Admin:
+    - DB_READ
+    - DB_WRITE
+    - APP_MANAGE
+    - USER_MANAGE
+    - LOG_VIEW
+    - SYSTEM_CONFIG
+  Intern:
+    - APP_READ
+    - DOC_VIEW
+  Manager:
+    - APP_READ
+    - REPORT_VIEW
+    - USER_APPROVE
+  Auditor:
+    - LOG_VIEW
+    - REPORT_VIEW
+    - COMPLIANCE_CHECK
