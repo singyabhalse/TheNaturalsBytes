@@ -37,11 +37,11 @@ public class DatabaseConfiguration {
 	 *
 	 * @return DataSource configured for secondary database
 	 */
-	@Bean(name = "datasource2")
-	@ConfigurationProperties(prefix = "spring.datasource.db")
-	public DataSource secondaryDataSource() {
-		return DataSourceBuilder.create().build();
-	}
+//	@Bean(name = "datasource2")
+//	@ConfigurationProperties(prefix = "spring.datasource.db")
+//	public DataSource secondaryDataSource() {
+//		return DataSourceBuilder.create().build();
+//	}
 
 	/**
 	 * Transaction manager for the primary datasource.
@@ -66,9 +66,9 @@ public class DatabaseConfiguration {
 	 * @param datasource The secondary datasource (datasource2)
 	 * @return DataSourceTransactionManager for secondary database
 	 */
-	@Bean(name = "tm2")
-	DataSourceTransactionManager tm2(@Qualifier("datasource2") DataSource datasource) {
-		DataSourceTransactionManager txm = new DataSourceTransactionManager(datasource);
-		return txm;
-	}
+//	@Bean(name = "tm2")
+//	DataSourceTransactionManager tm2(@Qualifier("datasource2") DataSource datasource) {
+//		DataSourceTransactionManager txm = new DataSourceTransactionManager(datasource);
+//		return txm;
+//	}
 }

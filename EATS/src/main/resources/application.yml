@@ -18,6 +18,12 @@ spring:
         order_inserts: true
         jdbc:
           batch_size: 4
+    data:
+      redis:
+        host: localhost
+        port: 6379
+    cache:
+     type: redis
 
   ai:
     ollama:
@@ -27,6 +33,44 @@ spring:
 logging:
   level:
     org.springframework: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,httptrace
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j:
+  ratelimiter:
+    rateLimiterAspectOrder: 3
+    instances:
+      paymentService:
+        limitForPeriod: 2
+        limitRefreshPeriod: 10s
+        timeoutDuration: 0
+  retry:
+    retryAspectOrder: 2
+  circuitbreaker:
+    circuitBreakerAspectOrder: 1
+    instances:
+      paymentService:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+
+elasticsearch:
+  host: localhost
+  port: 9200
+  username: elastic
+  password:  9kC862i8J7VeTgCS9JU8z70D
+
+xpack.security.http.ssl.enabled: false
+
+
 
 roles:
   roles:

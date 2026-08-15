@@ -5,6 +5,7 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
@@ -16,6 +17,7 @@ public class JwtUtil {
 
     private final Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
+    @Cacheable(value="token", key="#username")
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
