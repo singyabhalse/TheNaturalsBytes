@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: elasticsearch
+  namespace: eats
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: elasticsearch
+
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+
+    spec:
+      containers:
+        - name: elasticsearch
+          image: docker.elastic.co/elasticsearch/elasticsearch:9.2.0
+
+          ports:
+            - containerPort: 9200
+
+          env:
+            - name: discovery.type
+              value: single-node
+
+            - name: xpack.security.enabled
+              value: "true"
+
+            - name: xpack.security.http.ssl.enabled
+              value: "false"
+
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eats-secrets
+                  key: ELASTICSEARCH_PASSWORD
+
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
