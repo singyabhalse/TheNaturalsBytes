@@ -35,11 +35,19 @@ public class ElasticConfig {
         credentialsProvider.setCredentials(AuthScope.ANY,
                 new UsernamePasswordCredentials(username, password));
 
-        RestClient restClient = RestClient.builder(
+      /*  RestClient restClient = RestClient.builder(
                         new HttpHost(esHost, esPort, "https"))
                 .setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder
                         .setDefaultCredentialsProvider(credentialsProvider)
                         .setSSLHostnameVerifier((hostname, session) -> true)) // dev only: skip hostname check
+                .build();*/
+
+        RestClient restClient = RestClient.builder(
+                        new HttpHost(esHost, esPort, "http"))
+                .setHttpClientConfigCallback(httpClientBuilder ->
+                        httpClientBuilder
+                                .setDefaultCredentialsProvider(credentialsProvider)
+                )
                 .build();
 
         ElasticsearchTransport transport = new RestClientTransport(
