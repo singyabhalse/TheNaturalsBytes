@@ -1,13 +1,9 @@
-env:
-  - name: SPRING_PROFILES_ACTIVE
-    value: k8s
-
 server:
   port: 8082
 
 spring:
   datasource:
-    jdbcUrl: jdbc:mysql://localhost:3306/eatsdb?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://mysql-service:3306/eatsdb?useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,17 +18,19 @@ spring:
         order_inserts: true
         jdbc:
           batch_size: 4
-    data:
-      redis:
-        host: localhost
-        port: 6379
-    cache:
-     type: redis
+
+  data:
+    redis:
+      host: redis-service
+      port: 6379
+
+  cache:
+    type: redis
 
   ai:
     ollama:
       model: mistral
-      base-url: http://localhost:11434
+      base-url: http://ollama-service:11434
 
 logging:
   level:
@@ -43,6 +41,7 @@ management:
     web:
       exposure:
         include: health,info,metrics,loggers,httptrace
+
   endpoint:
     health:
       show-details: always
@@ -55,8 +54,10 @@ resilience4j:
         limitForPeriod: 2
         limitRefreshPeriod: 10s
         timeoutDuration: 0
+
   retry:
     retryAspectOrder: 2
+
   circuitbreaker:
     circuitBreakerAspectOrder: 1
     instances:
@@ -67,14 +68,12 @@ resilience4j:
         waitDurationInOpenState: 10s
 
 elasticsearch:
-  host: localhost
+  host: elasticsearch-service
   port: 9200
   username: elastic
-  password:  9kC862i8J7VeTgCS9JU8z70D
+  password: ${ELASTICSEARCH_PASSWORD}
 
 xpack.security.http.ssl.enabled: false
-
-
 
 roles:
   roles:

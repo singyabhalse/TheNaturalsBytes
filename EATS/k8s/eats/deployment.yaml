@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: eats-deployment
+  namespace: eats
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: eats
+
+  template:
+    metadata:
+      labels:
+        app: eats
+
+    spec:
+      containers:
+        - name: eats
+
+          image: singyabhalse/eats:latest
+
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8082
+
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+
+            - name: ELASTICSEARCH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eats-secrets
+                  key: ELASTICSEARCH_PASSWORD
