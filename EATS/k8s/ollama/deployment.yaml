@@ -1,22 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
   name: ollama
   namespace: eats
-
 spec:
   replicas: 1
-
   selector:
     matchLabels:
       app: ollama
-
   template:
     metadata:
       labels:
         app: ollama
-
     spec:
       containers:
         - name: ollama
@@ -29,7 +24,15 @@ spec:
             requests:
               memory: "1Gi"
               cpu: "500m"
-
             limits:
               memory: "4Gi"
               cpu: "2000m"
+
+          volumeMounts:
+            - name: ollama-data
+              mountPath: /root/.ollama
+
+      volumes:
+        - name: ollama-data
+          persistentVolumeClaim:
+            claimName: ollama-pvc
