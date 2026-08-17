@@ -15,7 +15,7 @@ import java.net.http.HttpResponse;
 @Component
 public class AIServiceMonitor {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+//    private final RestTemplate restTemplate = new RestTemplate();
 
     private volatile boolean aiServiceUp = false;
 

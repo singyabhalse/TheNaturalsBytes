@@ -1,3 +1,4 @@
+/*
 package com.userexprior.config;
 
 import org.springframework.boot.actuate.health.Health;
@@ -44,4 +45,4 @@ public class AIServiceHealthIndicator implements HealthIndicator {
                     .build();
         }
     }
-}
+}*/
