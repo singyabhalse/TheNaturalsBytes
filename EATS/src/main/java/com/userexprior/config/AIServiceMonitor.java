@@ -1,3 +1,4 @@
+/*
 package com.userexprior.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class AIServiceMonitor {
 
         try {
 
+*/
 /*            ResponseEntity<String> response =
                     restTemplate.getForEntity(
                             "http://localhost:8085/actuator/health",
@@ -35,7 +37,8 @@ public class AIServiceMonitor {
 
             aiServiceUp = response.getStatusCode().is2xxSuccessful();
 
-            System.out.println("AI Service Status : " + aiServiceUp);*/
+            System.out.println("AI Service Status : " + aiServiceUp);*//*
+
 
             webClient.get()
                     .uri("http://localhost:8085/actuator/health")
@@ -50,7 +53,8 @@ public class AIServiceMonitor {
                         System.out.println("AI Service UP");
                     });
 
-            /*HttpClient client = HttpClient.newHttpClient();
+            */
+/*HttpClient client = HttpClient.newHttpClient();
 
             HttpRequest request =
                     HttpRequest.newBuilder().GET()
@@ -62,7 +66,8 @@ public class AIServiceMonitor {
                             request,
                             HttpResponse.BodyHandlers.ofString());
 
-            System.out.println(response.body());*/
+            System.out.println(response.body());*//*
+
 
         } catch (Exception ex) {
 
@@ -76,3 +81,4 @@ public class AIServiceMonitor {
         return aiServiceUp;
     }
 }
+*/
