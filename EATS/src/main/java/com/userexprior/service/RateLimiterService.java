@@ -12,7 +12,7 @@ public class RateLimiterService {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    private final Integer MAX_REQUESTS_PER_MINUTE = 10;
+    private final Integer MAX_REQUESTS_PER_MINUTE = 20;
 
     public boolean allowRequest(String userId) {
 
