@@ -1,6 +1,9 @@
-FROM openjdk:21
-EXPOSE 8082
+FROM eclipse-temurin:21-jre
+
 WORKDIR /app
 
-ADD target/spring-boot-docker.jar /app/spring-boot-docker.jar 
-ENTRYPOINT ["java","-jar","/app/spring-boot-docker.jar"]
+COPY target/spring-boot-docker.jar app.jar
+
+EXPOSE 8082
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
