@@ -12,6 +12,8 @@ public class RateLimiterService {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    private final Integer MAX_REQUESTS_PER_MINUTE = 10;
+
     public boolean allowRequest(String userId) {
 
         String key = "rate:" + userId;
@@ -22,6 +24,6 @@ public class RateLimiterService {
             redisTemplate.expire(key, Duration.ofMinutes(1));
         }
 
-        return count <= 2;
+        return count <= MAX_REQUESTS_PER_MINUTE;
     }
 }
