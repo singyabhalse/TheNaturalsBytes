@@ -1,35 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
   name: ollama
   namespace: eats
-
 spec:
   replicas: 1
-
   selector:
     matchLabels:
       app: ollama
-
   template:
     metadata:
       labels:
         app: ollama
-
     spec:
+      initContainers:
+        - name: init-model
+          image: ollama/ollama:latest
+          command: ["ollama", "pull", "mistral"]
+          volumeMounts:
+            - name: ollama-models
+              mountPath: /root/.ollama/models
       containers:
         - name: ollama
           image: ollama/ollama:latest
-
+          command: ["ollama", "serve"]
           ports:
             - containerPort: 11434
-
           resources:
             requests:
               memory: "1Gi"
               cpu: "500m"
-
             limits:
               memory: "4Gi"
               cpu: "2000m"
+          volumeMounts:
+            - name: ollama-models
+              mountPath: /root/.ollama/models
+      volumes:
+        - name: ollama-models
+          emptyDir: {}
