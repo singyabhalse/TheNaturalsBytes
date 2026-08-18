@@ -15,14 +15,20 @@ spec:
     spec:
       initContainers:
         - name: init-model
-          image: ollama/ollama:latest
-          command: ["ollama", "pull", "mistral"]
+          image: ollama/ollama:0.5.7
+          command:
+            - sh
+            - -c
+            - |
+              ollama serve &
+              until ollama list >/dev/null 2>&1; do sleep 1; done
+              ollama pull mistral
           volumeMounts:
             - name: ollama-models
               mountPath: /root/.ollama/models
       containers:
         - name: ollama
-          image: ollama/ollama:latest
+          image: ollama/ollama:0.5.7
           command: ["ollama", "serve"]
           ports:
             - containerPort: 11434
@@ -31,11 +37,22 @@ spec:
               memory: "1Gi"
               cpu: "500m"
             limits:
-              memory: "4Gi"
+              memory: "6Gi"
               cpu: "2000m"
+          readinessProbe:
+            tcpSocket:
+              port: 11434
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 11434
+            initialDelaySeconds: 10
+            periodSeconds: 10
           volumeMounts:
             - name: ollama-models
               mountPath: /root/.ollama/models
       volumes:
         - name: ollama-models
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: ollama-models-pvc
